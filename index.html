@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+        <link rel="icon" href="icone.png" type="image/png"> 
+        <title>Frase Especial</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+<body>
+    <div class="container">
+        <h1>Frase Especial</h1>
+        <form id="infoForm">
+            <div class="form-group">
+                <input type="text" id="nome" name="nome" placeholder="Nome">
+            </div>
+            <div class="form-group">
+                <input type="number" id="idade" name="idade" placeholder="Idade">
+            </div>        
+            <button type="button" class="btn btn-primary" onclick="gerarFrase()">
+                <i class="bi bi-arrow-repeat text-dark"></i>
+            </button>  
+            <div id="mensagem"></div> 
+        </form>
+    </div>
+
+    <footer>
+        <div class="bottom-bar">
+            <p>©</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function gerarFrase() {
+            var nome = document.getElementById("nome").value;
+            fetch("https://type.fit/api/quotes")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var randomIndex = Math.floor(Math.random() * data.length);
+                    var quote = data[randomIndex].text + " - " + data[randomIndex].author;
+                    document.getElementById("mensagem").innerText = nome + ", " + quote;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        }
+    </script>
+</body>
+</html>
